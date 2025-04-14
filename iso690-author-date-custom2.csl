@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<style xmlns="http://purl.org/net/xbiblio/csl" version="1.0">
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="en-US">
   <info>
-    <title>Harvard Custom (Name-Date, Uppercase, ISBN)</title>
-    <id>http://www.zotero.org/styles/harvard-custom-upper-et-al</id>
-    <link href="http://www.zotero.org/styles/harvard-custom-upper-et-al" rel="self"/>
+    <title>Harvard Custom (Uppercase Authors with ISBN)</title>
+    <id>http://www.zotero.org/styles/harvard-custom-uppercase-isbn</id>
+    <link href="http://www.zotero.org/styles/harvard-custom-uppercase-isbn" rel="self"/>
     <author>
       <name>ChatGPT</name>
     </author>
     <category citation-format="author-date"/>
-    <category field="generic-base"/>
-    <updated>2025-04-13T00:00:00+00:00</updated>
-    <summary>Harvard style with first author et al. in-text, uppercase authors in bibliography, and ISBN displayed.</summary>
+    <updated>2025-04-14</updated>
     <language>en-GB</language>
   </info>
 
   <macro name="author">
     <names variable="author">
-      <name name-as-sort-order="all" and="text" initialize-with=". " delimiter=", ">
+      <name name-as-sort-order="all" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always">
         <name-part name="family" text-case="uppercase"/>
         <name-part name="given"/>
       </name>
@@ -46,12 +44,12 @@
   </macro>
 
   <macro name="isbn">
-    <group prefix="ISBN " delimiter="">
+    <group prefix="ISBN ">
       <text variable="ISBN"/>
     </group>
   </macro>
 
-  <citation collapse="year-suffix" et-al-min="2" et-al-use-first="1" et-al-use-last="false">
+  <citation et-al-min="2" et-al-use-first="1" et-al-use-last="false" collapse="year">
     <layout prefix="(" suffix=")" delimiter=", ">
       <group delimiter=", ">
         <text macro="author"/>
@@ -61,7 +59,11 @@
     </layout>
   </citation>
 
-  <bibliography et-al-min="2" et-al-use-first="1" et-al-use-last="false" hanging-indent="true" line-spacing="2">
+  <bibliography hanging-indent="true" line-spacing="1">
+    <sort>
+      <key macro="author"/>
+      <key macro="issued"/>
+    </sort>
     <layout>
       <group delimiter=". ">
         <text macro="author"/>
