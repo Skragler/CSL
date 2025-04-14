@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="en-US">
   <info>
-    <title>Harvard Custom (Uppercase Authors with ISBN)</title>
+    <title>Harvard Custom Uppercase with ISBN</title>
     <id>http://www.zotero.org/styles/harvard-custom-uppercase-isbn</id>
     <link href="http://www.zotero.org/styles/harvard-custom-uppercase-isbn" rel="self"/>
     <author>
@@ -13,23 +13,34 @@
   </info>
 
   <macro name="author">
-    <names variable="author">
-      <name name-as-sort-order="all" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always">
-        <name-part name="family" text-case="uppercase"/>
-        <name-part name="given"/>
-      </name>
-      <label form="short" prefix=", "/>
-      <substitute>
-        <names variable="editor"/>
-        <text variable="title"/>
-      </substitute>
-    </names>
+    <text text-case="uppercase">
+      <names variable="author">
+        <name name-as-sort-order="all" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always"/>
+        <label form="short" prefix=", "/>
+        <substitute>
+          <names variable="editor"/>
+          <text variable="title"/>
+        </substitute>
+      </names>
+    </text>
   </macro>
 
-  <macro name="issued">
-    <date variable="issued">
-      <date-part name="year"/>
-    </date>
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" and="text" delimiter=", " initialize-with=". "/>
+      <substitute>
+        <names variable="editor"/>
+        <names variable="translator"/>
+        <choose>
+          <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
+            <text variable="title" form="short" font-style="italic"/>
+          </if>
+          <else>
+            <text variable="title" form="short" quotes="true"/>
+          </else>
+        </choose>
+      </substitute>
+    </names>
   </macro>
 
   <macro name="title">
@@ -37,10 +48,13 @@
   </macro>
 
   <macro name="publisher">
-    <group delimiter=", ">
-      <text variable="publisher"/>
-      <text variable="publisher-place"/>
-    </group>
+    <text variable="publisher"/>
+  </macro>
+
+  <macro name="issued">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
   </macro>
 
   <macro name="isbn">
@@ -52,7 +66,7 @@
   <citation et-al-min="2" et-al-use-first="1" et-al-use-last="false" collapse="year">
     <layout prefix="(" suffix=")" delimiter=", ">
       <group delimiter=", ">
-        <text macro="author"/>
+        <text macro="author-short"/>
         <text macro="issued"/>
         <text variable="locator" prefix="p. "/>
       </group>
